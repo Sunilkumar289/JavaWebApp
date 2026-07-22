@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>My Web App</title>
+    <style>
+        nav { background: #333; padding: 10px; }
+        nav a { color: white; margin-right: 15px; text-decoration: none; }
+        nav a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <!-- Menu -->
+    <nav>
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+    </nav>
+
+    <h1>Welcome to My Web Application</h1>
+
+    <!-- Dropdown -->
+    <label for="options">Choose a topic:</label>
+    <select id="options">
+        <option value="java">Java</option>
+        <option value="spring">Spring Boot</option>
+        <option value="docker">Docker</option>
+    </select>
+
+    <!-- Hyperlinks -->
+    <p>Useful links:</p>
+    <ul>
+        <li><a href="https://spring.io/projects/spring-boot" target="_blank">Spring Boot Docs</a></li>
+        <li><a href="https://www.oracle.com/java/" target="_blank">Java Official Site</a></li>
+        <li><a href="https://www.docker.com/" target="_blank">Docker</a></li>
+    </ul>
+</body>
+</html>
