@@ -1,24 +1,28 @@
-pipeline{
-agent any
-stages{
- stage('build')
- {
- steps{
- sh '''
- echo 'hello javaWebApp'
- mvn clean package
- '''
- }
- }
- stage('Docker build')
- {
-   steps{
-   sh '''
-      echo "Building Docker image..."
-      docker build -t myrepo/javawebapp:latest .
-      '''
-   }
- }
- 
-}
+pipeline {
+  agent {
+    kubernetes {
+      label 'maven-kaniko-agent'   // matches the Pod Template label
+    }
+  }
+  stages {
+    stage('Build with Maven') {
+      steps {
+        container('maven') {
+          sh 'mvn clean package'
+        }
+      }
+    }
+    stage('Docker Build & Push with Kaniko') {
+      steps {
+        container('kaniko') {
+          sh '''
+            /kaniko/executor \
+              --dockerfile=$WORKSPACE/Dockerfile \
+              --context=$WORKSPACE \
+              --destination=<your-dockerhub-username>/javawebapp:latest
+          '''
+        }
+      }
+    }
+  }
 }
