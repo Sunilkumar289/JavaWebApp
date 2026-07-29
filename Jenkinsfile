@@ -10,5 +10,15 @@ stages{
  '''
  }
  }
+ stage('Docker build')
+ {
+   steps{
+   sh '''
+      echo "Building Docker image..."
+      docker build -t myrepo/javawebapp:latest .
+      '''
+   }
+ }
+ 
 }
 }
