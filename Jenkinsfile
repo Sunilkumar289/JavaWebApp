@@ -6,6 +6,7 @@ stages{
  steps{
  sh '''
  echo 'hello javaWebApp'
+ mvn clean package
  '''
  }
  }
