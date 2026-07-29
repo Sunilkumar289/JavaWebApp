@@ -1,7 +1,7 @@
 pipeline {
   agent {
     kubernetes {
-      label 'maven-kaniko-agent'   // matches the Pod Template label
+      inheritFrom 'maven-kaniko-template' 
     }
   }
   stages {
