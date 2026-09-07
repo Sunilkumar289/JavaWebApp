@@ -1,8 +1,7 @@
 pipeline {
-  agent {
-    kubernetes {
-      inheritFrom 'maven-kaniko-template' 
-    }
+  agent any
+  tools {
+    maven 'Maven-3.9.16'
   }
   stages {
     stage('Build with Maven') {
