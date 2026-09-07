@@ -11,17 +11,16 @@ pipeline {
         }
       }
     }
-    stage('Docker Build & Push with Kaniko') {
-      steps {
-        container('kaniko') {
-          sh '''
-            /kaniko/executor \
-              --dockerfile=$WORKSPACE/Dockerfile \
-              --context=$WORKSPACE \
-              --destination=<your-dockerhub-username>/javawebapp:latest
-          '''
-        }
+    stage('Docker Build & Push') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DOCKER_USER', passwordVariable: 'DOCKER_PASS')]) {
+                    sh '''
+                        echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+                        docker build -t $DOCKER_USER/javawebapp:latest .
+                        docker push $DOCKER_USER/javawebapp:latest
+                    '''
+                }
       }
     }
   }
-}
+
